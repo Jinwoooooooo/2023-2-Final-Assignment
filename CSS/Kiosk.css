@@ -51,6 +51,7 @@ header {
     width: 250px;
     height: 350px;
     margin-top: 40px;
+    cursor: pointer;
 }
 
 .movieName {
@@ -86,7 +87,7 @@ header {
 .Ticket {
     border: 1px solid white;
     width: 1000px;
-    height: 785px;
+    height: 875px;
     margin-top: 562.5px;
     position: fixed;
     background-color: white;
@@ -104,11 +105,13 @@ header {
 .backicon {
     width: 40px;
     margin-left: 25px;
+    cursor: pointer;
 }
 
 .homeicon {
     width: 40px;
     margin-right: 25px;
+    cursor: pointer;
 }
 .ticketInfo {
     display: flex;
@@ -145,11 +148,11 @@ header {
     font-family: 'Noto Sans KR', sans-serif;
     text-align: center;
     font-size: 19px;
-    margin-bottom: 65px;
+    margin-bottom: 80px;
 }
 .howmanypeople {
     font-family: 'Noto Sans KR', sans-serif;
-    margin-left: 40px;
+    margin-left: 72.5px;
     margin-right: 70px;
     color: #777777;
     font-size: 20px;
@@ -177,7 +180,74 @@ header {
     height: 60px;
     text-align: center;
     background-color: #eeeeee;
+    cursor: pointer;
 }
 
+.bottom {
+    text-align: center;
+    margin-top: 85px;
+}
+.nextbtn {
+    width: 40px;
+    cursor: pointer;
+}
 /*!====================================================*/
 
+/*!====================================================*/
+/*! Seat Zone
+/*!====================================================*/
+.Seat {
+    border: 1px solid white;
+    width: 1000px;
+    height: 875px;
+    margin-top: 562.5px;
+    position: fixed;
+    background-color: white;
+    display: none;
+}
+
+.seatGrid {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(1, 1fr);
+    width: 600px;
+    margin: 0 auto;
+}
+
+.screen {
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    border-radius: 0px 0px 50px 50px;
+    font-size: 15px;
+    height: 17.5px;
+}
+
+.seatRow {
+    display: flex;
+    justify-content: center;
+}
+
+.seat {
+    width: 55px;
+    height: 45px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.bottom2 {
+    text-align: center;
+    margin-top: 40px;
+}
+.nextbtn2 {
+    width: 40px;
+    cursor: pointer;
+}
