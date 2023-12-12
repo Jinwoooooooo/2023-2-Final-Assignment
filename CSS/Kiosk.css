@@ -182,6 +182,10 @@ header {
     background-color: #eeeeee;
     cursor: pointer;
 }
+.number.zero {
+    background-color: rgb(250, 130, 115);
+    color: white;
+}
 
 .bottom {
     text-align: center;
@@ -190,6 +194,7 @@ header {
 .nextbtn {
     width: 40px;
     cursor: pointer;
+    visibility: hidden;
 }
 /*!====================================================*/
 
@@ -250,4 +255,5 @@ header {
 .nextbtn2 {
     width: 40px;
     cursor: pointer;
+    visibility: hidden;
 }
