@@ -19,12 +19,17 @@ $(document).ready(function () {
         $(".ticketInfo .ticketInfoText p:first-child").text(movieName);
         $(".ticketInfo .ticketInfoText p:last-child").text(showTime);
     });
+
     //! Home Button
     $(".Ticket .homeicon").click(function () {
+        resetNumberButtons();
         $(".Ticket").hide();
         $(".movieList").show();
     });
+
     $(".Seat .homeicon").click(function () {
+        resetNumberButtons();
+        resetSeatSelection();
         $(".Seat").hide();
         $(".movieList").show();
     });
@@ -32,34 +37,22 @@ $(document).ready(function () {
     //! Back Button
     //? Seat에서 backicon을 클릭하면 Ticket이 나옴
     $(".Seat .backicon").click(function () {
+        resetSeatSelection();
         $(".Seat").hide();
         $(".Ticket").show();
     });
+
     //? Ticket에서 backicon을 클릭하면 movieList가 나오고
     //? 인원수 선택을 초기화 한다.
     $(".Ticket .backicon").click(function () {
-        $(".adult .number").not(".zero").css({
-            "background-color": "#eeeeee",
-            "color": "#000000"
-        });
-    
-        $(".teenager .number").not(".zero").css({
-            "background-color": "#eeeeee",
-            "color": "#000000"
-        });
-    
-        $(".zero").css({
-            "background-color": "rgb(250, 130, 115)",
-            "color": "white"
-        });
-    
+        resetNumberButtons();
         $(".Ticket").hide();
         $(".movieList").show();
     });
 
     //? seat를 클릭하면 nextbtn2가 나옴
     $(".seat").click(function () {
-        $(".nextbtn2").css("visibility", "");
+        $(".nextbtn2").css("visibility", "visible");
     });
 
     //! Next Button
@@ -89,9 +82,10 @@ $(document).ready(function () {
 
         // 현재 클릭된 숫자를 추적
         selectedAdultNumber = $(this).text();
-        if(selectedAdultNumber > 0) {
+
+        if (selectedAdultNumber >= 1 || selectedTeenagerNumber >= 1) {
             $(".nextbtn").css("visibility", "visible");
-        } else if(selectedAdultNumber == 0) {
+        } else {
             $(".nextbtn").css("visibility", "hidden");
         }
     });
@@ -112,10 +106,52 @@ $(document).ready(function () {
 
         // 현재 클릭된 숫자를 추적
         selectedTeenagerNumber = $(this).text();
-        if(selectedTeenagerNumber > 0) {
+
+        if (selectedTeenagerNumber >= 1 || selectedAdultNumber >= 1) {
             $(".nextbtn").css("visibility", "visible");
-        }   else if(selectedTeenagerNumber == 0) {
+        } else {
             $(".nextbtn").css("visibility", "hidden");
         }
     });
+
+    //! Seat Button
+    // 좌석 선택 시
+    $(".seat").click(function () {
+        // 다른 좌석의 스타일 초기화
+        $(".seat").not(this).css({
+            "background-color": "white",
+            "color": "black"
+        });
+
+        // 현재 클릭된 숫자 버튼에 스타일 설정
+        $(this).css({
+            "background-color": "rgb(250, 130, 115)",
+            "color": "white"
+        });
+    });
+    
 });
+
+
+function resetNumberButtons() {
+    $(".adult .number, .teenager .number").css({
+        "background-color": "#eeeeee",
+        "color": "#777777"
+    });
+
+    $(".zero").css({
+        "background-color": "rgb(250, 130, 115)",
+        "color": "white"
+    });
+
+    $(".nextbtn").css("visibility", "hidden");
+}
+
+function resetSeatSelection() {
+    $(".seat").css({
+        "background-color": "white",
+        "color": "black"
+    });
+
+    $(".nextbtn2").css("visibility", "hidden");
+}

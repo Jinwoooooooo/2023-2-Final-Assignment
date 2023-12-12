@@ -252,8 +252,10 @@ header {
     text-align: center;
     margin-top: 40px;
 }
+
 .nextbtn2 {
     width: 40px;
     cursor: pointer;
     visibility: hidden;
 }
+
