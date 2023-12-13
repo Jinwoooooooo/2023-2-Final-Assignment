@@ -34,6 +34,11 @@ $(document).ready(function () {
         $(".movieList").show();
     });
 
+    $(".Payment .homeicon").click(function () {
+        $(".Payment").hide();
+        $(".movieList").show();
+    });
+
     //! Back Button
     //? Seat에서 backicon을 클릭하면 Ticket이 나옴
     $(".Seat .backicon").click(function () {
@@ -49,6 +54,10 @@ $(document).ready(function () {
         $(".Ticket").hide();
         $(".movieList").show();
     });
+    $(".Payment .backicon").click(function () {
+        $(".Payment").hide();
+        $(".Seat").show();
+    });
 
     //? seat를 클릭하면 nextbtn2가 나옴
     $(".seat").click(function () {
@@ -60,6 +69,12 @@ $(document).ready(function () {
     $(".Ticket .nextbtn").click(function () {
         $(".Ticket").hide();
         $(".Seat").show();
+    });
+
+    $(".Seat .nextbtn2").click(function () {
+        $(".Seat").hide();
+        $(".headerVideo").hide();
+        $(".Payment").show();
     });
 
     //! Number Button
