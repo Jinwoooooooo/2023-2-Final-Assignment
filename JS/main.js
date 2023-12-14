@@ -35,6 +35,8 @@ $(document).ready(function () {
     });
 
     $(".Payment .homeicon").click(function () {
+        resetNumberButtons();
+        resetSeatSelection();
         $(".Payment").hide();
         $(".movieList").show();
     });
