@@ -20,7 +20,7 @@ $(document).ready(function () {
         $(".ticketInfo .ticketInfoText p:last-child").text(showTime);
     });
 
-    //! Home Button
+    // Home Button
     $(".Ticket .homeicon").click(function () {
         resetNumberButtons();
         $(".Ticket").hide();
@@ -42,16 +42,15 @@ $(document).ready(function () {
         $(".headerVideo").show();
     });
 
-    //! Back Button
-    //? Seat에서 backicon을 클릭하면 Ticket이 나옴
+    // Back Button
     $(".Seat .backicon").click(function () {
         resetSeatSelection();
         $(".Seat").hide();
         $(".Ticket").show();
     });
 
-    //? Ticket에서 backicon을 클릭하면 movieList가 나오고
-    //? 인원수 선택을 초기화 한다.
+    // Ticket에서 backicon을 클릭하면 movieList가 나오고
+    // 인원수 선택을 초기화 한다.
     $(".Ticket .backicon").click(function () {
         resetNumberButtons();
         $(".Ticket").hide();
@@ -63,13 +62,12 @@ $(document).ready(function () {
         $(".headerVideo").show();
     });
 
-    //? seat를 클릭하면 nextbtn2가 나옴
+    // seat를 클릭하면 다음 버튼이 나옴
     $(".seat").click(function () {
         $(".nextbtn2").css("visibility", "visible");
     });
 
-    //! Next Button
-    //? Ticket에서 nextbtn을 클릭하면 seat이 나옴
+    //Next Button
     $(".Ticket .nextbtn").click(function () {
         $(".Ticket").hide();
         $(".Seat").show();
@@ -81,7 +79,7 @@ $(document).ready(function () {
         $(".Payment").show();
     });
 
-    //! Number Button
+    // Number
     let selectedAdultNumber = null; // 성인 관람 인원을 추적하기 위한 변수
     let selectedTeenagerNumber = null; // 청소년 관람 인원을 추적하기 위한 변수
 
@@ -99,8 +97,8 @@ $(document).ready(function () {
             "color": "white"
         });
 
-        // 현재 클릭된 숫자를 추적
-        selectedAdultNumber = $(this).text();
+        // 현재 클릭된 adult의 숫자를 추적
+        selectedAdultNumber = parseInt($(this).text());
 
         if (selectedAdultNumber >= 1 || selectedTeenagerNumber >= 1) {
             $(".nextbtn").css("visibility", "visible");
@@ -123,8 +121,8 @@ $(document).ready(function () {
             "color": "white"
         });
 
-        // 현재 클릭된 숫자를 추적
-        selectedTeenagerNumber = $(this).text();
+        // 현재 클릭된 Teenager의 숫자를 추적
+        selectedTeenagerNumber = parseInt($(this).text()); 
 
         if (selectedTeenagerNumber >= 1 || selectedAdultNumber >= 1) {
             $(".nextbtn").css("visibility", "visible");
@@ -133,15 +131,24 @@ $(document).ready(function () {
         }
     });
 
-    //! Seat Button
-
+    // Seat
     // 좌석 선택 시
     $(".seat").click(function () {
-        // 현재 클릭된 숫자 버튼에 스타일 설정
-        $(this).css({
-            "background-color": "rgb(250, 130, 115)",
-            "color": "white"
-        });
+        let totalPeople = selectedAdultNumber + selectedTeenagerNumber;
+        let checkPeople = totalPeople;
+        
+        // 클릭한 요소부터 totalPeople 개수만큼의 seat에 스타일 적용
+        for (let i = 0; i < totalPeople; i++) {
+            $(this).css({
+                "background-color": "rgb(250, 130, 115)",
+                "color": "white"
+            });
+            checkPeople--;
+        }
+
+        if (checkPeople == 0) {
+            $(".seat").attr("disabled", true);
+        }
     });
 });
 
