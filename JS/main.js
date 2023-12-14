@@ -39,6 +39,7 @@ $(document).ready(function () {
         resetSeatSelection();
         $(".Payment").hide();
         $(".movieList").show();
+        $(".headerVideo").show();
     });
 
     //! Back Button
@@ -59,6 +60,7 @@ $(document).ready(function () {
     $(".Payment .backicon").click(function () {
         $(".Payment").hide();
         $(".Seat").show();
+        $(".headerVideo").show();
     });
 
     //? seat를 클릭하면 nextbtn2가 나옴
@@ -132,21 +134,15 @@ $(document).ready(function () {
     });
 
     //! Seat Button
+
     // 좌석 선택 시
     $(".seat").click(function () {
-        // 다른 좌석의 스타일 초기화
-        $(".seat").not(this).css({
-            "background-color": "white",
-            "color": "black"
-        });
-
         // 현재 클릭된 숫자 버튼에 스타일 설정
         $(this).css({
             "background-color": "rgb(250, 130, 115)",
             "color": "white"
         });
     });
-    
 });
 
 
