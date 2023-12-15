@@ -62,11 +62,6 @@ $(document).ready(function () {
         $(".headerVideo").show();
     });
 
-    // seat를 클릭하면 다음 버튼이 나옴
-    $(".seat").click(function () {
-        $(".nextbtn2").css("visibility", "visible");
-    });
-
     //Next Button
     $(".Ticket .nextbtn").click(function () {
         $(".Ticket").hide();
@@ -86,13 +81,13 @@ $(document).ready(function () {
     // 일반(adult) 버튼 클릭 시
     $(".adult .number").click(function () {
         // 다른 숫자 버튼의 스타일 초기화
-        $(".adult .number").not(this).css({
+        $(".adult .number").not(this).removeClass("selectedANumber").css({
             "background-color": "#eeeeee",
             "color": "#777777"
         });
 
         // 현재 클릭된 숫자 버튼에 스타일 설정
-        $(this).css({
+        $(this).addClass("selectedANumber").css({
             "background-color": "rgb(250, 130, 115)",
             "color": "white"
         });
@@ -110,13 +105,13 @@ $(document).ready(function () {
     // 청소년(teenager) 버튼 클릭 시
     $(".teenager .number").click(function () {
         // 다른 숫자 버튼의 스타일 초기화
-        $(".teenager .number").not(this).css({
+        $(".teenager .number").not(this).removeClass("selectedTNumber").css({
             "background-color": "#eeeeee",
             "color": "#777777"
         });
 
         // 현재 클릭된 숫자 버튼에 스타일 설정
-        $(this).css({
+        $(this).addClass("selectedTNumber").css({
             "background-color": "rgb(250, 130, 115)",
             "color": "white"
         });
@@ -130,26 +125,58 @@ $(document).ready(function () {
             $(".nextbtn").css("visibility", "hidden");
         }
     });
+    
+    
+    $(document).ready(function () {
+        $(".seat").click(function () {
 
-    // Seat
-    // 좌석 선택 시
-    $(".seat").click(function () {
-        let totalPeople = selectedAdultNumber + selectedTeenagerNumber;
-        let checkPeople = totalPeople;
-        
-        // 클릭한 요소부터 totalPeople 개수만큼의 seat에 스타일 적용
-        for (let i = 0; i < totalPeople; i++) {
-            $(this).css({
-                "background-color": "rgb(250, 130, 115)",
-                "color": "white"
-            });
-            checkPeople--;
-        }
+            let selectedANumber = parseInt($(".selectedANumber").text());
+            let selectedTNumber = parseInt($(".selectedTNumber").text());
+            
+            let totalPeople;
 
-        if (checkPeople == 0) {
-            $(".seat").attr("disabled", true);
-        }
-    });
+            if (isNaN(selectedANumber)) {
+                totalPeople = selectedTNumber;
+            } else if (isNaN(selectedTNumber)) {
+                totalPeople = selectedANumber;
+            } else {
+                totalPeople = selectedANumber + selectedTNumber;
+            }
+
+            console.log("---------------------------------");
+            console.log("selectedANumber:", selectedANumber);
+            console.log("selectedTNumber:", selectedTNumber);
+            console.log("totalPeople (before):", totalPeople);
+            console.log("---------------------------------");
+            
+            if (totalPeople > 0) {
+                if ($(this).hasClass("selected")) {
+                    // 이미 선택된 좌석을 다시 클릭하면 스타일을 원래대로 변경하고
+                    $(this).removeClass("selected").css({
+                        "background-color": "white",
+                        "color": "black"
+                    });
+                    totalPeople++;
+                } else {
+                    // 처음 선택한 경우에는 스타일을 변경하고 totalPeople 감소
+                    $(this).addClass("selected").css({
+                        "background-color": "rgb(250, 130, 115)",
+                        "color": "white"
+                    });
+                    totalPeople--;
+                }
+
+                console.log("Clicked seat");
+                console.log("totalPeople (after):", totalPeople);
+                console.log("---------------------------------");
+
+                if (totalPeople === 0) {
+                    $(".seat").off('click');
+                    console.log("All seats changed");
+                }
+            }
+        });
+    });  
 });
 
 
