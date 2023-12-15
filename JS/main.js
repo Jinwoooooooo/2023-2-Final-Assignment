@@ -173,12 +173,22 @@ $(document).ready(function () {
         
                 if (selectedSeatsCounter >= totalPeople) {
                     $(".seat").off('click');
+                    $(".nextbtn2").css("visibility", "visible");
                     console.log("인원에 맞는 모든 좌석을 선택했습니다.");
                 }
             }
+            $(".backicon").click(function () {
+                $(".seat").on('click');
+                $(".seat").removeClass("selected");
+    
+                totalPeople = 0;
+                selectedSeatsCounter = 0;
+    
+                console.log("좌석을 초기화 했습니다.");
+                
+                $(".nextbtn2").css("visibility", "hidden");
+            })
         });
-        
-        
     }); 
 });
 
@@ -205,3 +215,5 @@ function resetSeatSelection() {
 
     $(".nextbtn2").css("visibility", "hidden");
 }
+
+//.Seat에서 backicon, homeicon을 클릭하면 모든 좌석 초기화 후 다시 선택할 수 있게 하기.
