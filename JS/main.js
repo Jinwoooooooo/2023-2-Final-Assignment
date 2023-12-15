@@ -127,14 +127,16 @@ $(document).ready(function () {
     });
     
     
-    $(document).ready(function () {
-        $(".seat").click(function () {
+        $(document).ready(function () {
 
+        let selectedSeatsCounter = 0; 
+
+        $(".seat").click(function () {
             let selectedANumber = parseInt($(".selectedANumber").text());
             let selectedTNumber = parseInt($(".selectedTNumber").text());
-            
+        
             let totalPeople;
-
+        
             if (isNaN(selectedANumber)) {
                 totalPeople = selectedTNumber;
             } else if (isNaN(selectedTNumber)) {
@@ -142,41 +144,42 @@ $(document).ready(function () {
             } else {
                 totalPeople = selectedANumber + selectedTNumber;
             }
-
+        
             console.log("---------------------------------");
             console.log("selectedANumber:", selectedANumber);
             console.log("selectedTNumber:", selectedTNumber);
-            console.log("totalPeople (before):", totalPeople);
+            console.log("totalPeople :", totalPeople);
             console.log("---------------------------------");
-            
+        
             if (totalPeople > 0) {
                 if ($(this).hasClass("selected")) {
-                    // 이미 선택된 좌석을 다시 클릭하면 스타일을 원래대로 변경하고
                     $(this).removeClass("selected").css({
                         "background-color": "white",
                         "color": "black"
                     });
-                    totalPeople++;
+                    --selectedSeatsCounter;
                 } else {
-                    // 처음 선택한 경우에는 스타일을 변경하고 totalPeople 감소
                     $(this).addClass("selected").css({
                         "background-color": "rgb(250, 130, 115)",
                         "color": "white"
                     });
-                    totalPeople--;
+                    ++selectedSeatsCounter;
                 }
-
+        
                 console.log("Clicked seat");
-                console.log("totalPeople (after):", totalPeople);
+                console.log("totalPeople :", totalPeople);
+                console.log("Selected seats counter:", selectedSeatsCounter);
                 console.log("---------------------------------");
-
-                if (totalPeople === 0) {
+        
+                if (selectedSeatsCounter >= totalPeople) {
                     $(".seat").off('click');
-                    console.log("All seats changed");
+                    console.log("인원에 맞는 모든 좌석을 선택했습니다.");
                 }
             }
         });
-    });  
+        
+        
+    }); 
 });
 
 
