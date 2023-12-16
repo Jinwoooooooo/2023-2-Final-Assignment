@@ -240,7 +240,6 @@ $(document).ready(function () {
         $(".Ticket").css("display", "none");
         $(".Payment").css("display", "none");
         $(".credit-card").show();
-        $("body").css("background-color", "lightgray");
     })
 });
 

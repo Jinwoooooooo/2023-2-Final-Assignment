@@ -358,13 +358,17 @@ header {
 /*! Credit Card Zone
 /*!====================================================*/
 .credit-card {
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
     width: 450px;
     height: 250px;
     border-radius: 25px;
     font-family: "Poppins", sans-serif;
-    color: white;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    color: rgb(50, 50, 50);
+    box-shadow: 0 5px 10px 0px rgba(255, 255, 255, 0.3);
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
@@ -381,7 +385,7 @@ header {
 }
 .logo-name h5 {
     font-size: 18px;
-    font-weight: 300;
+    font-weight: 500;
 }
 .logo {
     width: 60px;
@@ -395,7 +399,7 @@ header {
 
 
 .card-middle {
-    margin-top: 35px;
+    margin-top: 30px;
     margin-left: 30px;
     line-height: 10px;
 }
