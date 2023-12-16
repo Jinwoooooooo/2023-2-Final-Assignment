@@ -214,6 +214,27 @@ $(document).ready(function () {
         });
     });
     
+    
+
+    $(".nextbtn2").click(function () {
+        // 성인 가격 텍스트에서 숫자만 추출
+        let adultPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
+
+        // 청소년 가격 텍스트에서 숫자만 추출
+        let teenagerPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
+
+        // 계산된 가격을 변수에 저장
+        let calculatedAdultPrice = 13000 * adultPrice;
+        let calculatedTeenagerPrice = 10000 * teenagerPrice;
+
+        // 화면에 가격 출력
+        $(".adultPrice p:nth-child(2)").text(`${calculatedAdultPrice} 원`);
+        $(".teenagerPrice p:nth-child(2)").text(`${calculatedTeenagerPrice} 원`);
+
+        // 총 가격 계산 및 출력
+        let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
+        $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
+    });
 });
 
 

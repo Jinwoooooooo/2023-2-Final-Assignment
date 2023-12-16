@@ -294,3 +294,37 @@ header {
 .people {
     font-size: 14px;
 }
+
+.justline2 {
+    border: 0.1px solid rgba(0, 0, 0, 0.05);
+    border-bottom-style: none;
+}
+
+.price {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 28px;
+    color: #777777;
+}
+
+.adultPrice {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+.teenagerPrice {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 70px;
+    margin-right: 70px;
+}
+
+.totalPrice {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 28px;
+    color: #777777;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 70px;
+    margin-right: 70px;
+}
