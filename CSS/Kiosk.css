@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&family=Poppins&display=swap');
+
 body {
     margin: 0 auto;
     max-width: 1000px;
@@ -303,7 +305,7 @@ header {
 
 .price {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     color: #777777;
 }
 
@@ -322,10 +324,106 @@ header {
 
 .totalPrice {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     color: #777777;
     display: flex;
     justify-content: space-between;
     margin-left: 70px;
     margin-right: 70px;
+}
+
+.payToCard {
+    font-family: 'Noto Sans KR', sans-serif;
+    color: white;
+    font-size: 25px;
+    background-color: rgb(253, 120, 108);
+    border-radius: 12px;
+    width: 300px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 86%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.payToCard:hover {
+    background-color: rgba(212, 83, 66, 0.788);
+}
+/*!====================================================*/
+
+/*!====================================================*/
+/*! Credit Card Zone
+/*!====================================================*/
+.credit-card {
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    width: 450px;
+    height: 250px;
+    border-radius: 25px;
+    font-family: "Poppins", sans-serif;
+    color: white;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+}
+.logo-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-name h5 {
+    font-size: 18px;
+    font-weight: 300;
+}
+.logo {
+    width: 60px;
+    height: 37px;
+    margin: 0px 15px 0px 25px;
+}
+.chip {
+    width: 70px;
+    margin-right: 22px;
+}
+
+
+.card-middle {
+    margin-top: 35px;
+    margin-left: 30px;
+    line-height: 10px;
+}
+.cdNumber {
+    font-size: 12px;
+}
+.cardNumber {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+
+.card-bottom {
+    margin-left: 30px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.card-name {
+    font-size: 19px;
+}
+.vaild-date {
+    line-height: 8px;
+}
+.validthru {
+    font-size: 11px;
+    margin-right: 23px;
+}
+.date {
+    font-size: 19px;
 }

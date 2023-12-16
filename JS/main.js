@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $(".credit-card").hide();
     // .poster 이미지 클릭 시
     $(".poster").click(function () {
         // 숨기기와 보이기
@@ -48,7 +49,6 @@ $(document).ready(function () {
 
     // Back Button
     $(".Seat .backicon").click(function () {
-        resetSeatSelection();
         $(".Seat").hide();
         $(".Ticket").show();
     });
@@ -232,6 +232,16 @@ $(document).ready(function () {
         let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
         $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
     });
+
+    $(".payToCard").click(function () {
+        $("header").css("display", "none");
+        $(".headerVideo").get(0).pause();
+        $(".movieList").css("display", "none");
+        $(".Ticket").css("display", "none");
+        $(".Payment").css("display", "none");
+        $(".credit-card").show();
+        $("body").css("background-color", "lightgray");
+    })
 });
 
 
@@ -257,5 +267,3 @@ function resetSeatSelection() {
 
     $(".nextbtn2").css("visibility", "hidden");
 }
-
-//.Seat에서 backicon, homeicon을 클릭하면 모든 좌석 초기화 후 다시 선택할 수 있게 하기. /done.
