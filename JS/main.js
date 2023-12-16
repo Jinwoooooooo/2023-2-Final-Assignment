@@ -14,10 +14,15 @@ $(document).ready(function () {
         // 선택한 .poster 이미지의 showTime 가져오기
         let showTime = $(this).siblings(".movieInfo").find(".showTime").text();
 
+        // 선택한 .poster 이미지의 age rating 가져오기
+        let ageRatingSrc = $(this).siblings(".movieInfo").find(".age").attr("src");
+
         // .ticketInfo 업데이트
         $(".ticketInfo .ticketImg").attr("src", selectedImgSrc);
-        $(".ticketInfo .ticketInfoText p:first-child").text(movieName);
-        $(".ticketInfo .ticketInfoText p:last-child").text(showTime);
+        $(".ticketInfo .ageRatingImg").attr("src", ageRatingSrc);
+        $(".ticketInfo .ticketInfoText p:nth-child(1)").text(movieName);
+        $(".ticketInfo .ticketInfoText p:nth-child(2)").text(showTime);
+        
     });
 
     // Home Button
@@ -127,16 +132,14 @@ $(document).ready(function () {
     });
     
     
-        $(document).ready(function () {
-
-        let selectedSeatsCounter = 0; 
-
-        $(".seat").click(function () {
+    $(document).ready(function () {
+        let selectedSeatsCounter = 0;
+    
+        function updateSeatSelection() {
             let selectedANumber = parseInt($(".selectedANumber").text());
             let selectedTNumber = parseInt($(".selectedTNumber").text());
-        
             let totalPeople;
-        
+    
             if (isNaN(selectedANumber)) {
                 totalPeople = selectedTNumber;
             } else if (isNaN(selectedTNumber)) {
@@ -144,13 +147,13 @@ $(document).ready(function () {
             } else {
                 totalPeople = selectedANumber + selectedTNumber;
             }
-        
+    
             console.log("---------------------------------");
             console.log("selectedANumber:", selectedANumber);
             console.log("selectedTNumber:", selectedTNumber);
             console.log("totalPeople :", totalPeople);
             console.log("---------------------------------");
-        
+    
             if (totalPeople > 0) {
                 if ($(this).hasClass("selected")) {
                     $(this).removeClass("selected").css({
@@ -165,31 +168,52 @@ $(document).ready(function () {
                     });
                     ++selectedSeatsCounter;
                 }
-        
+    
                 console.log("Clicked seat");
                 console.log("totalPeople :", totalPeople);
                 console.log("Selected seats counter:", selectedSeatsCounter);
                 console.log("---------------------------------");
-        
+    
                 if (selectedSeatsCounter >= totalPeople) {
                     $(".seat").off('click');
                     $(".nextbtn2").css("visibility", "visible");
                     console.log("인원에 맞는 모든 좌석을 선택했습니다.");
                 }
             }
-            $(".backicon").click(function () {
-                $(".seat").on('click');
-                $(".seat").removeClass("selected");
+            let selectedSeats = $(".seat.selected");
+
+            // .map() 함수를 사용하여 각 좌석의 텍스트를 배열로 추출
+            let seatTextArray = selectedSeats.map(function () {
+                return $(this).text();
+            }).get();
+
+            // 배열을 쉼표로 연결하여 문자열로 만듭니다.
+            let seatStatus = seatTextArray.join(', ');
+
+            $(".ticketInfo .ticketInfoText p:nth-child(7)").text(`좌석 │ ${seatStatus}`);
+            $(".ticketInfo .ticketInfoText p:nth-child(4)").text(`일반 │ ${selectedANumber}명`);
+            $(".ticketInfo .ticketInfoText p:nth-child(5)").text(`청소년 │ ${selectedTNumber}명`);
+        }
     
-                totalPeople = 0;
-                selectedSeatsCounter = 0;
+        $(".seat").click(updateSeatSelection);
     
-                console.log("좌석을 초기화 했습니다.");
-                
-                $(".nextbtn2").css("visibility", "hidden");
-            })
+        $(".backicon, .homeicon").click(function () {
+            $(".seat").removeClass("selected").css({
+                "background-color": "white",
+                "color": "black"
+            });
+    
+            selectedSeatsCounter = 0;
+    
+            console.log("좌석을 초기화 했습니다.");
+    
+            $(".nextbtn2").css("visibility", "hidden");
+    
+            $(".seat").off('click');
+            $(".seat").click(updateSeatSelection);
         });
-    }); 
+    });
+    
 });
 
 
@@ -216,4 +240,4 @@ function resetSeatSelection() {
     $(".nextbtn2").css("visibility", "hidden");
 }
 
-//.Seat에서 backicon, homeicon을 클릭하면 모든 좌석 초기화 후 다시 선택할 수 있게 하기.
+//.Seat에서 backicon, homeicon을 클릭하면 모든 좌석 초기화 후 다시 선택할 수 있게 하기. /done.

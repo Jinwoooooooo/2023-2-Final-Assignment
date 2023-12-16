@@ -13,13 +13,14 @@ setInterval(getClock, 1000);
 
 $(document).ready(function () {
     let videoList = [
+        'Video/elemental.mp4', //? 1분 27초
+        'Video/aladin.mp4', //? 2분 14초
+        'Video/soheeAD.mp4', //? 30초
         'Video/Seoulspring.mp4', //? 45초
         'Video/oppenheimer.mp4', //? 1분 57초
         'Video/napoleon.mp4', //? 1분 49초
-        'Video/soheeAD.mp4', //? 30초
-        'Video/suicidesquad.mp4', //? 2분 23초
-        'Video/johnwick3.mp4', //? 30초
         'Video/jujutsukaisen0.mp4' //? 30초
+        //약 9분?
     ];
     let currentVideoIndex = 0;
 

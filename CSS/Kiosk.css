@@ -38,7 +38,6 @@ header {
     background-color: #000000;
     margin-top: 562.5px;
     padding-bottom: 20px;
-
 }
 
 .List {
@@ -54,11 +53,18 @@ header {
     cursor: pointer;
 }
 
+.age {
+    width: 20px;
+    margin-right: 6px;
+    align-self: center;
+}
+
 .movieName {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
     color: #ffffff;
-    
+    display: flex;  /* 수평 정렬을 위해 추가 */
+    align-items: center; 
 }
 
 .showTime {
@@ -128,6 +134,13 @@ header {
     margin-left: 65px;
     margin-right: 30px;
     border-radius: 10px;
+}
+
+/* Age Rating 이미지 스타일 */
+.ageRatingImg {
+    width: 24px; /* 이미지의 폭 조절 */
+    margin-right: 10px; /* 이미지와 텍스트 사이의 간격 조절 */
+    margin-bottom: 36px;
 }
 
 .ticketInfoText {
@@ -274,26 +287,10 @@ header {
     display: none;
 }
 
-.PmticketInfo {
-    display: flex;
-    align-items: center;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 19px;
-    color: #777777;
-}
-.PmticketImg {
-    width: 150px;
-    margin-top: 50px;
-    margin-left: 65px;
-    margin-right: 30px;
-    border-radius: 10px;
+.seatStatus {
+    font-size: 14px;
 }
 
-.PmticketInfoText {
-    display: flex;
-    flex-direction: column;
-}
-
-.PmticketInfoText p {
-    margin: 5px 0;
+.people {
+    font-size: 14px;
 }
