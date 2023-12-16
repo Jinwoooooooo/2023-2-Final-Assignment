@@ -243,6 +243,11 @@ $(document).ready(function () {
     })
 });
 
+$(function () { 
+    $(".credit-card").draggable({ 
+        opacity: 0.4
+    }); 
+});
 
 function resetNumberButtons() {
     $(".adult .number, .teenager .number").css({
