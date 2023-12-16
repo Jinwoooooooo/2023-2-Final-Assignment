@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $(".credit-card").hide();
+    $(".card-reader").hide();
     // .poster 이미지 클릭 시
     $(".poster").click(function () {
         // 숨기기와 보이기
@@ -240,12 +241,19 @@ $(document).ready(function () {
         $(".Ticket").css("display", "none");
         $(".Payment").css("display", "none");
         $(".credit-card").show();
+        $(".card-reader").show();
     })
 });
 
 $(function () { 
+    $(".card-reader").droppable(); 
     $(".credit-card").draggable({ 
-        opacity: 0.4
+        opacity: 1
+    });  
+    $(".card-reader").droppable({ 
+        drop: function () {
+            alert("결제완료");   
+        } 
     }); 
 });
 

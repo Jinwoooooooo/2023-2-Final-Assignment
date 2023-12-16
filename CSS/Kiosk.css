@@ -365,9 +365,10 @@ header {
     font-family: "Poppins", sans-serif;
     color: rgb(50, 50, 50);
     box-shadow: 0 5px 10px 0px rgba(255, 255, 255, 0.3);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50px;
+    left: 50px;
+    z-index: 2;
 }
 
 
@@ -429,4 +430,21 @@ header {
 }
 .date {
     font-size: 19px;
+}
+
+
+.card-reader {
+    display: flex;
+    border-radius: 30px;
+    width: 500px;
+    background-color: white;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.nfc {
+    width: 400px;
 }
