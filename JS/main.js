@@ -44,7 +44,6 @@ $(document).ready(function () {
         resetSeatSelection();
         $(".Payment").hide();
         $(".movieList").show();
-        $(".headerVideo").show();
     });
 
     // Back Button
@@ -64,7 +63,6 @@ $(document).ready(function () {
     $(".Payment .backicon").click(function () {
         $(".Payment").hide();
         $(".Seat").show();
-        $(".headerVideo").show();
     });
 
     //Next Button
@@ -75,7 +73,6 @@ $(document).ready(function () {
 
     $(".Seat .nextbtn2").click(function () {
         $(".Seat").hide();
-        $(".headerVideo").hide();
         $(".Payment").show();
     });
 

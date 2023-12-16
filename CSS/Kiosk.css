@@ -281,7 +281,8 @@ header {
 .Payment {
     border: 1px solid white;
     width: 1000px;
-    height: 1437.5px;
+    height: 875px;
+    margin-top: 562.5px;
     position: fixed;
     background-color: white;
     display: none;
@@ -302,7 +303,7 @@ header {
 
 .price {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 28px;
+    font-size: 20px;
     color: #777777;
 }
 
@@ -321,7 +322,7 @@ header {
 
 .totalPrice {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: 28px;
+    font-size: 20px;
     color: #777777;
     display: flex;
     justify-content: space-between;
