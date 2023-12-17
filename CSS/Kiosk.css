@@ -428,8 +428,6 @@ header {
 .card-reader {
     display: flex;
     border-radius: 30px;
-    width: 500px;
-    background-color: white;
     justify-content: center;
     position: absolute;
     top: 50%;
@@ -438,7 +436,9 @@ header {
     z-index: 1;
 }
 .nfc {
-    width: 400px;
+    width: 700px;
+    border: 5px solid white;
+    border-radius: 70px;
 }
 
 /*!====================================================*/

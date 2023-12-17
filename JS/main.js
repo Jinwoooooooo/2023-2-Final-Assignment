@@ -283,6 +283,9 @@ $(document).ready(function () {
             $(".headerVideo").get(0).play();
             $(".movieList").show();
         })
+        $(".print").click(function() {
+            
+        });
     });
 });
 
