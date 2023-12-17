@@ -449,13 +449,13 @@ header {
 
 .Receipt {
     font-family: 'Noto Sans KR', sans-serif;
-    border: 2px solid #333;
     padding: 20px;
     width: 450px;
     height: 625px;
     margin: 50px auto;
     text-align: center;
     background-color: white;
+    border: 1px solid black;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -507,4 +507,23 @@ header {
 
 .ticket-number {
     margin-top: 40px;
+}
+
+.selectMenu {
+    font-family: 'Noto Sans KR', sans-serif;
+    padding: 20px;
+    width: 450px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+}
+
+.gotoMain {
+    width: 50px;
+    background-color: black;
+}
+.print {
+    width: 50px;
+    background-color: black;
 }

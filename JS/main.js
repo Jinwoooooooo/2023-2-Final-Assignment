@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $(".credit-card").hide();
     $(".card-reader").hide();
+    $(".selectMenu").hide();
     $(".Receipt").hide();
     // .poster 이미지 클릭 시
     $(".poster").click(function () {
@@ -211,71 +212,79 @@ $(document).ready(function () {
             $(".seat").off('click');
             $(".seat").click(updateSeatSelection);
         });
-    });
+
+        $(".nextbtn2").click(function () {
+            // 성인 가격 텍스트에서 숫자만 추출
+            let adultPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
     
+            // 청소년 가격 텍스트에서 숫자만 추출
+            let teenagerPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
     
-
-    $(".nextbtn2").click(function () {
-        // 성인 가격 텍스트에서 숫자만 추출
-        let adultPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
-
-        // 청소년 가격 텍스트에서 숫자만 추출
-        let teenagerPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
-
-        // 계산된 가격을 변수에 저장
-        let calculatedAdultPrice = 13000 * adultPrice;
-        let calculatedTeenagerPrice = 10000 * teenagerPrice;
-
-        // 화면에 가격 출력
-        $(".adultPrice p:nth-child(2)").text(`${calculatedAdultPrice} 원`);
-        $(".teenagerPrice p:nth-child(2)").text(`${calculatedTeenagerPrice} 원`);
-
-        // 총 가격 계산 및 출력
-        let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
-        $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
-    });
-
-    $(".payToCard").click(function () {
-        $("header").hide();
-        $(".headerVideo").get(0).pause();
-        $(".movieList").hide();
-        $(".Ticket").hide();
-        $(".Payment").hide();
-        $(".credit-card").show();
-        $(".card-reader").show();
-    })
-
-    $(".card-reader").droppable(); 
-    $(".credit-card").draggable({ 
-        opacity: 1
-    });  
-    $(".card-reader").droppable({ 
-        drop: function () {
-            alert("결제완료"); 
-            $(".credit-card").hide();
-            $(".card-reader").hide();
-            $(".Receipt").show();
-            
-            let selectedMovieTitle = $(".Payment .ticketInfo .ticketInfoText p:nth-child(1)").text();
-            let selectedShowTime = $(".Payment .ticketInfo .ticketInfoText p:nth-child(2)").text();
-            let selectedSeats = $(".Payment .ticketInfo .ticketInfoText p:nth-child(7)").text();
-            let adult = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
-            let teenager = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
-            let totalPeopleInfo = adult + teenager;
-            
-            $(".details p:nth-child(1)").text(selectedMovieTitle);
-            $(".details p:nth-child(2)").text(selectedShowTime);
-            $(".details p:nth-child(3)").text(`${selectedSeats}`);
-            $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
-
-            localStorage.setItem("Title", selectedMovieTitle);
-            localStorage.setItem("Seat", selectedSeats);
-        }
+            // 계산된 가격을 변수에 저장
+            let calculatedAdultPrice = 13000 * adultPrice;
+            let calculatedTeenagerPrice = 10000 * teenagerPrice;
+    
+            // 화면에 가격 출력
+            $(".adultPrice p:nth-child(2)").text(`${calculatedAdultPrice} 원`);
+            $(".teenagerPrice p:nth-child(2)").text(`${calculatedTeenagerPrice} 원`);
+    
+            // 총 가격 계산 및 출력
+            let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
+            $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
+        });
+    
+        $(".payToCard").click(function () {
+            $("header").hide();
+            $(".headerVideo").get(0).pause();
+            $(".movieList").hide();
+            $(".Ticket").hide();
+            $(".Payment").hide();
+            $(".credit-card").show();
+            $(".card-reader").show();
+        })
+    
+        $(".card-reader").droppable(); 
+        $(".credit-card").draggable({ 
+            opacity: 1
+        });  
+        $(".card-reader").droppable({ 
+            drop: function () {
+                alert("결제완료"); 
+                $(".credit-card").hide();
+                $(".card-reader").hide();
+                $(".Receipt").show();
+                $(".selectMenu").show();
+                
+                let selectedMovieTitle = $(".Payment .ticketInfo .ticketInfoText p:nth-child(1)").text();
+                let selectedShowTime = $(".Payment .ticketInfo .ticketInfoText p:nth-child(2)").text();
+                let selectedSeats = $(".Payment .ticketInfo .ticketInfoText p:nth-child(7)").text();
+                let adult = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
+                let teenager = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
+                let totalPeopleInfo = adult + teenager;
+                
+                $(".details p:nth-child(1)").text(selectedMovieTitle);
+                $(".details p:nth-child(2)").text(selectedShowTime);
+                $(".details p:nth-child(3)").text(`${selectedSeats}`);
+                $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
+                
+                resetNumberButtons();
+                selectedSeatsCounter = 0;
+    
+                $(".selected").css("color", "white");
+                $(".selected").css("background-color", "#aaaaaa").removeClass("selected").addClass("Sold");
+                $(".Sold").off("click");
+            }
+        });
+    
+        $(".gotoMain").click(function () {
+            $(".selectMenu").hide();
+            $(".Receipt").hide();
+            $("header").show();
+            $(".headerVideo").get(0).play();
+            $(".movieList").show();
+        })
     });
 });
-
-
-
 
 function getClock() {
     const date = new Date();
