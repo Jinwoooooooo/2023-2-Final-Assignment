@@ -267,10 +267,14 @@ $(document).ready(function () {
             $(".details p:nth-child(2)").text(selectedShowTime);
             $(".details p:nth-child(3)").text(`${selectedSeats}`);
             $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
-        } 
-        
+
+            localStorage.setItem("Title", selectedMovieTitle);
+            localStorage.setItem("Seat", selectedSeats);
+        }
     });
 });
+
+
 
 
 function getClock() {
