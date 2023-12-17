@@ -18,7 +18,6 @@
     <!--? header Zone -->
     <!--* header Zone -->
     <header>
-        <p id="clock">00:00:00</p>
         <video class="headerVideo" src="" controls playsinline></video>
     </header>
     <!--! movieList Zone -->
@@ -276,7 +275,7 @@
                 <div class="seat">E3</div>
                 <div class="seat">E4</div>
                 <div class="seat">E5</div>
-                <div class="seat">E6</div>
+                <div class="seat" id="test">E6</div>
             </div>
             <div class="bottom2">
                 <img class="nextbtn2" src="Img/next2.png">
@@ -322,7 +321,9 @@
         <div class="payToCard">카드 결제</div>
     </div>
 
-
+    <!--! Credit Card Zone -->
+    <!--? Credit Card Zone -->
+    <!--* Credit Card Zone -->
     <div class="credit-card" draggable="true">
         <div class="card-header">
             <div class="logo-name">
@@ -347,6 +348,38 @@
     <div class="card-reader">
         <img src="/Img/wireless.png" class="nfc">
     </div>
+
+    <!--! Movie Ticket Zone -->
+    <!--? Movie Ticket Zone -->
+    <!--* Movie Ticket Zone -->
+
+    <div class="Receipt">
+        <div class="theater">DIT 영화입장권</div>
+        <div class="topInfo">
+        <p id="clock">00:00:00</p>
+        <p>(DIT_KIOSK)</p>
+        <p>[전체발권]</p>
+        </div>
+        <p class="crossLine">=============================================</p>
+        <div class="details">
+            <p class="movie-title">무한도전: 무한의 미소</p>
+            <p>10:00</p>
+            <p>좌석: D5</p>
+            <p>총인원 1명 (일반 1명)</p>
+        </div>
+        <p class="crossLine">=============================================</p>
+        <div class="location">DIT 양정</div>
+        <div class="ticket-info">
+            <p>- 결제한 티켓은 절대 교환, 환불 불가</p>
+            <p>- 영화 시작 5분전에 입장 바랍니다.</p>
+            <p>- 즐거운 시간 되시기 바랍니다.</p>
+        </div>
+        <p class="crossLine">
+            ------------------------------------------------------------------------
+        </p>
+        <div class="ticket-number">1231-1231-1234-1234</div>
+    </div>
+
     <script src="JS/header.js"></script>
     <script src="JS/main.js"></script>
 </body>

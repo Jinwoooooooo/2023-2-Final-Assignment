@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $(".credit-card").hide();
     $(".card-reader").hide();
+    $(".Receipt").hide();
     // .poster 이미지 클릭 시
     $(".poster").click(function () {
         // 숨기기와 보이기
@@ -235,27 +236,70 @@ $(document).ready(function () {
     });
 
     $(".payToCard").click(function () {
-        $("header").css("display", "none");
+        $("header").hide();
         $(".headerVideo").get(0).pause();
-        $(".movieList").css("display", "none");
-        $(".Ticket").css("display", "none");
-        $(".Payment").css("display", "none");
+        $(".movieList").hide();
+        $(".Ticket").hide();
+        $(".Payment").hide();
         $(".credit-card").show();
         $(".card-reader").show();
     })
-});
 
-$(function () { 
     $(".card-reader").droppable(); 
     $(".credit-card").draggable({ 
         opacity: 1
     });  
     $(".card-reader").droppable({ 
         drop: function () {
-            alert("결제완료");   
+            alert("결제완료"); 
+            $(".credit-card").hide();
+            $(".card-reader").hide();
+            $(".Receipt").show();
+            
+            let selectedMovieTitle = $(".Payment .ticketInfo .ticketInfoText p:nth-child(1)").text();
+            let selectedShowTime = $(".Payment .ticketInfo .ticketInfoText p:nth-child(2)").text();
+            let selectedSeats = $(".Payment .ticketInfo .ticketInfoText p:nth-child(7)").text();
+            let adult = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
+            let teenager = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
+            let totalPeopleInfo = adult + teenager;
+            
+            $(".details p:nth-child(1)").text(selectedMovieTitle);
+            $(".details p:nth-child(2)").text(selectedShowTime);
+            $(".details p:nth-child(3)").text(`${selectedSeats}`);
+            $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
         } 
-    }); 
+        
+    });
 });
+
+
+function getClock() {
+    const date = new Date();
+    const year = String(date.getFullYear()).padStart(4, "0");
+    const month = String(date.getMonth()+1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    clock.innerText = (`${year}-${month}-${day} ${hours}:${minutes}`);
+}
+
+getClock();
+
+function generateRandomNumber() {
+    let randomNumber = '';
+    for (let i = 0; i < 16; i++) {
+        randomNumber += Math.floor(Math.random() * 10); // 0부터 9까지의 난수
+        if ((i + 1) % 4 === 0 && (i + 1) !== 16) {
+            randomNumber += '-';
+        }
+    }
+    return randomNumber;
+}
+
+// DOM에서 특정 요소의 텍스트를 랜덤한 숫자로 설정
+let ticketNumberElement = document.querySelector('.ticket-number');
+ticketNumberElement.innerText = generateRandomNumber();
+
 
 function resetNumberButtons() {
     $(".adult .number, .teenager .number").css({
