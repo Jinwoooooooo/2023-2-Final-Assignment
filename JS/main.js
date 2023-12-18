@@ -268,11 +268,14 @@ $(document).ready(function () {
                 $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
                 
                 resetNumberButtons();
-                selectedSeatsCounter = 0;
-    
-                $(".selected").css("color", "white");
-                $(".selected").css("background-color", "#aaaaaa").removeClass("selected").addClass("Sold");
-                $(".Sold").off("click");
+
+                // 콤마 제거 후 "│"와 "좌석"을 공백으로 대체
+                let formattedSeats = selectedSeats.replace(/,/g, '').replace(/│/g, '').replace(/좌석/g, '').trim();
+
+                // 로컬 스토리지에 저장
+                localStorage.setItem('Seats', formattedSeats); // 좌석 값을 저장
+                localStorage.setItem('Title', selectedMovieTitle); // 영화 제목 저장
+
             }
         });
     
