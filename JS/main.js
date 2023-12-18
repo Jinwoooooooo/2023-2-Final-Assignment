@@ -131,164 +131,171 @@ $(document).ready(function () {
         }
     });
     
+    let selectedSeatsCounter = 0;
     
-    $(document).ready(function () {
-        let selectedSeatsCounter = 0;
-    
-        function updateSeatSelection() {
-            let selectedANumber = parseInt($(".selectedANumber").text());
-            let selectedTNumber = parseInt($(".selectedTNumber").text());
-            let totalPeople;
-    
-            if (isNaN(selectedANumber)) {
-                totalPeople = selectedTNumber;
-            } else if (isNaN(selectedTNumber)) {
-                totalPeople = selectedANumber;
-            } else {
-                totalPeople = selectedANumber + selectedTNumber;
-            }
-    
-            console.log("---------------------------------");
-            console.log("selectedANumber:", selectedANumber);
-            console.log("selectedTNumber:", selectedTNumber);
-            console.log("totalPeople :", totalPeople);
-            console.log("---------------------------------");
-    
-            if (totalPeople > 0) {
-                if ($(this).hasClass("selected")) {
-                    $(this).removeClass("selected").css({
-                        "background-color": "white",
-                        "color": "black"
-                    });
-                    --selectedSeatsCounter;
-                } else {
-                    $(this).addClass("selected").css({
-                        "background-color": "rgb(250, 130, 115)",
-                        "color": "white"
-                    });
-                    ++selectedSeatsCounter;
-                }
-    
-                console.log("Clicked seat");
-                console.log("totalPeople :", totalPeople);
-                console.log("Selected seats counter:", selectedSeatsCounter);
-                console.log("---------------------------------");
-    
-                if (selectedSeatsCounter >= totalPeople) {
-                    $(".seat").off('click');
-                    $(".nextbtn2").css("visibility", "visible");
-                    console.log("인원에 맞는 모든 좌석을 선택했습니다.");
-                }
-            }
-            let selectedSeats = $(".seat.selected");
+    function updateSeatSelection() {
+        let selectedANumber = parseInt($(".selectedANumber").text());
+        let selectedTNumber = parseInt($(".selectedTNumber").text());
+        let totalPeople;
 
-            // .map() 함수를 사용하여 각 좌석의 텍스트를 배열로 추출
-            let seatTextArray = selectedSeats.map(function () {
+        if (isNaN(selectedANumber)) {
+            totalPeople = selectedTNumber;
+        } else if (isNaN(selectedTNumber)) {
+            totalPeople = selectedANumber;
+        } else {
+            totalPeople = selectedANumber + selectedTNumber;
+        }
+
+        if (totalPeople > 0) {
+            if ($(this).hasClass("selected")) {
+                $(this).removeClass("selected").css({
+                    "background-color": "white",
+                    "color": "black"
+                });
+                --selectedSeatsCounter;
+            } else {
+                $(this).addClass("selected").css({
+                    "background-color": "rgb(250, 130, 115)",
+                    "color": "white"
+                });
+                ++selectedSeatsCounter;
+            }
+
+            if (selectedSeatsCounter >= totalPeople) {
+                $(".seat").off('click');
+                $(".nextbtn2").css("visibility", "visible");
+                console.log("인원에 맞는 모든 좌석을 선택했습니다.");
+            }
+        }
+        let selectedSeats = $(".seat.selected");
+
+        // .map() 함수를 사용하여 각 좌석의 텍스트를 배열로 추출
+        let seatTextArray = selectedSeats.map(function () {
+            return $(this).text();
+        }).get();
+
+        // 배열을 쉼표로 연결하여 문자열로 만듭니다.
+        let seatStatus = seatTextArray.join(', ');
+
+        $(".ticketInfo .ticketInfoText p:nth-child(7)").text(`좌석 │ ${seatStatus}`);
+        $(".ticketInfo .ticketInfoText p:nth-child(4)").text(`일반 │ ${selectedANumber}명`);
+        $(".ticketInfo .ticketInfoText p:nth-child(5)").text(`청소년 │ ${selectedTNumber}명`);
+    }
+
+    $(".seat").click(updateSeatSelection);
+
+    $(".backicon, .homeicon").click(function () {
+        $(".seat:not(.Sold)").removeClass("selected").css({
+            "background-color": "white",
+            "color": "black"
+        });
+
+        selectedSeatsCounter = 0;
+
+        console.log("좌석을 초기화 했습니다.");
+
+        $(".nextbtn2").css("visibility", "hidden");
+    });
+
+    $(".nextbtn2").click(function () {
+        // 성인 가격 텍스트에서 숫자만 추출
+        let adultPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
+
+        // 청소년 가격 텍스트에서 숫자만 추출
+        let teenagerPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
+
+        // 계산된 가격을 변수에 저장
+        let calculatedAdultPrice = 13000 * adultPrice;
+        let calculatedTeenagerPrice = 10000 * teenagerPrice;
+
+        // 화면에 가격 출력
+        $(".adultPrice p:nth-child(2)").text(`${calculatedAdultPrice} 원`);
+        $(".teenagerPrice p:nth-child(2)").text(`${calculatedTeenagerPrice} 원`);
+
+        // 총 가격 계산 및 출력
+        let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
+        $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
+    });
+
+    $(".payToCard").click(function () {
+        $("header").hide();
+        $(".headerVideo").get(0).pause();
+        $(".movieList").hide();
+        $(".Ticket").hide();
+        $(".Payment").hide();
+        $(".credit-card").show();
+        $(".card-reader").show();
+    })
+
+    $(".card-reader").droppable(); 
+    $(".credit-card").draggable({ 
+        opacity: 1
+    });  
+    $(".card-reader").droppable({ 
+        drop: function () {
+            alert("결제완료"); 
+            $(".credit-card").hide();
+            $(".card-reader").hide();
+            $(".Receipt").show();
+            $(".selectMenu").show();
+            
+            let selectedMovieTitle = $(".Payment .ticketInfo .ticketInfoText p:nth-child(1)").text();
+            let selectedShowTime = $(".Payment .ticketInfo .ticketInfoText p:nth-child(2)").text();
+            let selectedSeatsText = $(".Payment .ticketInfo .ticketInfoText p:nth-child(7)").text();
+            let adult = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
+            let teenager = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
+            let totalPeopleInfo = adult + teenager;
+            
+            $(".details p:nth-child(1)").text(selectedMovieTitle);
+            $(".details p:nth-child(2)").text(selectedShowTime);
+            $(".details p:nth-child(3)").text(`${selectedSeatsText}`);
+            $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
+            
+            resetNumberButtons();
+            
+            // 좌석 정보에서 "좌석"과 "|"를 제거하고 저장
+            let selectedSeats = selectedSeatsText.replace('좌석 │ ', '').split(', ');
+            let lastIndex = 0;
+            while (localStorage.getItem(`Title${lastIndex + 1}`) !== null) {
+                lastIndex++;
+            }
+    
+            let newIndex = lastIndex + 1;
+            localStorage.setItem(`Title${newIndex}`, selectedMovieTitle);
+            localStorage.setItem(`Seats${newIndex}`, selectedSeats.join(', '));
+    
+            let savedTitle = localStorage.getItem(`Title${newIndex}`);
+            let movieNames = $(".movieName").map(function() {
                 return $(this).text();
             }).get();
-
-            // 배열을 쉼표로 연결하여 문자열로 만듭니다.
-            let seatStatus = seatTextArray.join(', ');
-
-            $(".ticketInfo .ticketInfoText p:nth-child(7)").text(`좌석 │ ${seatStatus}`);
-            $(".ticketInfo .ticketInfoText p:nth-child(4)").text(`일반 │ ${selectedANumber}명`);
-            $(".ticketInfo .ticketInfoText p:nth-child(5)").text(`청소년 │ ${selectedTNumber}명`);
-        }
-    
-        $(".seat").click(updateSeatSelection);
-    
-        $(".backicon, .homeicon").click(function () {
-            $(".seat").removeClass("selected").css({
-                "background-color": "white",
-                "color": "black"
-            });
-    
-            selectedSeatsCounter = 0;
-    
-            console.log("좌석을 초기화 했습니다.");
-    
-            $(".nextbtn2").css("visibility", "hidden");
-    
-            $(".seat").off('click');
-            $(".seat").click(updateSeatSelection);
-        });
-
-        $(".nextbtn2").click(function () {
-            // 성인 가격 텍스트에서 숫자만 추출
-            let adultPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
-    
-            // 청소년 가격 텍스트에서 숫자만 추출
-            let teenagerPrice = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
-    
-            // 계산된 가격을 변수에 저장
-            let calculatedAdultPrice = 13000 * adultPrice;
-            let calculatedTeenagerPrice = 10000 * teenagerPrice;
-    
-            // 화면에 가격 출력
-            $(".adultPrice p:nth-child(2)").text(`${calculatedAdultPrice} 원`);
-            $(".teenagerPrice p:nth-child(2)").text(`${calculatedTeenagerPrice} 원`);
-    
-            // 총 가격 계산 및 출력
-            let totalPrice = calculatedAdultPrice + calculatedTeenagerPrice;
-            $(".totalPrice p:nth-child(2)").text(`${totalPrice} 원`).css("color", "rgb(233, 82, 68)");
-        });
-    
-        $(".payToCard").click(function () {
-            $("header").hide();
-            $(".headerVideo").get(0).pause();
-            $(".movieList").hide();
-            $(".Ticket").hide();
-            $(".Payment").hide();
-            $(".credit-card").show();
-            $(".card-reader").show();
-        })
-    
-        $(".card-reader").droppable(); 
-        $(".credit-card").draggable({ 
-            opacity: 1
-        });  
-        $(".card-reader").droppable({ 
-            drop: function () {
-                alert("결제완료"); 
-                $(".credit-card").hide();
-                $(".card-reader").hide();
-                $(".Receipt").show();
-                $(".selectMenu").show();
-                
-                let selectedMovieTitle = $(".Payment .ticketInfo .ticketInfoText p:nth-child(1)").text();
-                let selectedShowTime = $(".Payment .ticketInfo .ticketInfoText p:nth-child(2)").text();
-                let selectedSeats = $(".Payment .ticketInfo .ticketInfoText p:nth-child(7)").text();
-                let adult = parseInt($(".ticketInfo .ticketInfoText p:nth-child(4)").text().replace(/[^0-9]/g, ''), 10);
-                let teenager = parseInt($(".ticketInfo .ticketInfoText p:nth-child(5)").text().replace(/[^0-9]/g, ''), 10);
-                let totalPeopleInfo = adult + teenager;
-                
-                $(".details p:nth-child(1)").text(selectedMovieTitle);
-                $(".details p:nth-child(2)").text(selectedShowTime);
-                $(".details p:nth-child(3)").text(`${selectedSeats}`);
-                $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
-                
-                resetNumberButtons();
-
-                // 콤마 제거 후 "│"와 "좌석"을 공백으로 대체
-                let formattedSeats = selectedSeats.replace(/,/g, '').replace(/│/g, '').replace(/좌석/g, '').trim();
-
-                // 로컬 스토리지에 저장
-                localStorage.setItem('Seats', formattedSeats); // 좌석 값을 저장
-                localStorage.setItem('Title', selectedMovieTitle); // 영화 제목 저장
-
-            }
-        });
-    
-        $(".gotoMain").click(function () {
-            $(".selectMenu").hide();
-            $(".Receipt").hide();
-            $("header").show();
-            $(".headerVideo").get(0).play();
-            $(".movieList").show();
-        })
-        $(".print").click(function() {
             
-        });
+            for (let i = 0; i < movieNames.length; i++) {
+                if(movieNames[i] == savedTitle) {
+                    console.log("영화 제목 일치");
+                    $(".selected").on("click");
+                    $(".selected").addClass("Sold");
+                    $(".selected").css("background-color", "#aaaaaa");
+                    $(".selected").css("color", "white");
+                    $(".selected").removeClass("selected");
+                    $(".Sold").off("click");
+                    $(".nextbtn2").css("visibility", "hidden");
+                }
+            }
+        }
+    });
+    
+
+    
+
+    $(".gotoMain").click(function () {
+        $(".selectMenu").hide();
+        $(".Receipt").hide();
+        $("header").show();
+        $(".headerVideo").get(0).play();
+        $(".movieList").show();
+    })
+    $(".print").click(function() {
+        
     });
 });
 
@@ -335,7 +342,7 @@ function resetNumberButtons() {
 }
 
 function resetSeatSelection() {
-    $(".seat").css({
+    $(".seat:not(.Sold)").css({
         "background-color": "white",
         "color": "black"
     });
