@@ -153,12 +153,14 @@ $(document).ready(function () {
                     "color": "black"
                 });
                 --selectedSeatsCounter;
+                console.log(`현재 ${selectedSeatsCounter}명 선택`);
             } else {
                 $(this).addClass("selected").css({
                     "background-color": "rgb(250, 130, 115)",
                     "color": "white"
                 });
                 ++selectedSeatsCounter;
+                console.log(`현재 ${selectedSeatsCounter}명 선택`);
             }
 
             if (selectedSeatsCounter >= totalPeople) {
@@ -189,13 +191,13 @@ $(document).ready(function () {
             "background-color": "white",
             "color": "black"
         });
-
         selectedSeatsCounter = 0;
-
-        console.log("좌석을 초기화 했습니다.");
+        $(".seat").click(updateSeatSelection);
+        console.log(`${selectedSeatsCounter} 좌석 초기화`);
 
         $(".nextbtn2").css("visibility", "hidden");
     });
+
 
     $(".nextbtn2").click(function () {
         // 성인 가격 텍스트에서 숫자만 추출
@@ -255,38 +257,37 @@ $(document).ready(function () {
             
             // 좌석 정보에서 "좌석"과 "|"를 제거하고 저장
             let selectedSeats = selectedSeatsText.replace('좌석 │ ', '').split(', ');
-            let lastIndex = 0;
-            while (localStorage.getItem(`Title${lastIndex + 1}`) !== null) {
-                lastIndex++;
-            }
-    
-            let newIndex = lastIndex + 1;
-            localStorage.setItem(`Title${newIndex}`, selectedMovieTitle);
-            localStorage.setItem(`Seats${newIndex}`, selectedSeats.join(', '));
-    
-            let savedTitle = localStorage.getItem(`Title${newIndex}`);
-            let movieNames = $(".movieName").map(function() {
-                return $(this).text();
-            }).get();
-            
-            for (let i = 0; i < movieNames.length; i++) {
-                if(movieNames[i] == savedTitle) {
-                    console.log("영화 제목 일치");
-                    $(".selected").on("click");
-                    $(".selected").addClass("Sold");
-                    $(".selected").css("background-color", "#aaaaaa");
-                    $(".selected").css("color", "white");
-                    $(".selected").removeClass("selected");
-                    $(".Sold").off("click");
-                    $(".nextbtn2").css("visibility", "hidden");
-                }
-            }
+
+            // 해당 영화의 키를 생성 (영화 제목을 소문자로 변환하여 사용)
+            let movieKey = selectedMovieTitle.toLowerCase();
+
+            // 기존에 저장된 해당 영화의 좌석 정보를 불러오기
+            let existingSeats = localStorage.getItem(movieKey);
+            existingSeats = existingSeats ? new Set(existingSeats.split(', ')) : new Set();
+
+            // 새로 선택된 좌석을 기존 좌석 정보에 추가
+            selectedSeats.forEach(seat => existingSeats.add(seat));
+
+            // 로컬스토리지에 업데이트된 좌석 정보 저장
+            localStorage.setItem(movieKey, [...existingSeats].join(', '));
+
+            selectedSeatsCounter = 0;
+            $(".seat").click(updateSeatSelection);
+            $(".selected").addClass("Sold");
+            $(".selected").css({
+                "background-color": "#aaaaaa",
+                "color": "white"
+            });
+            $(".selected").removeClass("selected");
+            $(".Sold").off("click");
+            $(".nextbtn2").css("visibility", "hidden");
+            $(".credit-card").css({
+                top: '50px',
+                left: '50px'
+            });
         }
     });
     
-
-    
-
     $(".gotoMain").click(function () {
         $(".selectMenu").hide();
         $(".Receipt").hide();
@@ -325,7 +326,6 @@ function generateRandomNumber() {
 // DOM에서 특정 요소의 텍스트를 랜덤한 숫자로 설정
 let ticketNumberElement = document.querySelector('.ticket-number');
 ticketNumberElement.innerText = generateRandomNumber();
-
 
 function resetNumberButtons() {
     $(".adult .number, .teenager .number").css({
