@@ -254,6 +254,7 @@ $(document).ready(function () {
             $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
             
             resetNumberButtons();
+            setTimeout(timeOut, 20000);
             
             // 좌석 정보에서 "좌석"과 "|"를 제거하고 저장
             let selectedSeats = selectedSeatsText.replace('좌석 │ ', '').split(', ');
@@ -287,7 +288,7 @@ $(document).ready(function () {
             });
         }
     });
-    
+
     $(".gotoMain").click(function () {
         $(".selectMenu").hide();
         $(".Receipt").hide();
@@ -348,4 +349,12 @@ function resetSeatSelection() {
     });
 
     $(".nextbtn2").css("visibility", "hidden");
+}
+
+function timeOut() {
+    $(".selectMenu").hide();
+    $(".Receipt").hide();
+    $("header").show();
+    $(".headerVideo").get(0).play();
+    $(".movieList").show();
 }
