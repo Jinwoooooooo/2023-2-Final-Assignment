@@ -10,7 +10,7 @@ $(document).ready(function () {
         //약 9분?
     ];
     let currentVideoIndex = 0;
-
+    
     // 다음 비디오를 재생하는 함수
     function playNextVideo() {
         // 비디오의 소스를 목록에서 다음 비디오로 설정합니다.
@@ -19,6 +19,7 @@ $(document).ready(function () {
         // 다음 반복을 위해 인덱스를 증가시킵니다.
         currentVideoIndex = (currentVideoIndex + 1) % videoList.length;
 
+        $(".headerVideo")[0].volume = 0.1;
         // 비디오를 재생합니다.
         $(".headerVideo")[0].play();
     }
@@ -31,4 +32,5 @@ $(document).ready(function () {
 
     // 초기 비디오를 재생합니다.
     playNextVideo();
+
 });
