@@ -1,4 +1,18 @@
-$(document).ready(function () {
+
+//-------------------------------------
+let movieKey;
+//-------------------------------------
+function gid(id) { return document.getElementById(id);}
+function getSoldSeats() {
+    let soldSeats = document.querySelectorAll(".Sold");
+    let soldSeatsNo = [];
+    for(let seat of soldSeats) {
+        soldSeatsNo.push(seat.innerHTML.trim());
+    }
+    return soldSeatsNo.toString();
+}
+//-------------------------------------
+    $(document).ready(function () {
     $(".credit-card").hide();
     $(".card-reader").hide();
     $(".selectMenu").hide();
@@ -8,25 +22,27 @@ $(document).ready(function () {
         // 숨기기와 보이기
         $(".movieList").hide();
         $(".Ticket").show();
-
+        
         // 선택한 .poster 이미지의 속성 가져오기
         let selectedImgSrc = $(this).attr("src");
-
+        
         // 선택한 .poster 이미지의 movieName 가져오기
         let movieName = $(this).siblings(".movieInfo").find(".movieName").text();
-
+        movieKey = movieName;
+        
         // 선택한 .poster 이미지의 showTime 가져오기
         let showTime = $(this).siblings(".movieInfo").find(".showTime").text();
-
+        
         // 선택한 .poster 이미지의 age rating 가져오기
         let ageRatingSrc = $(this).siblings(".movieInfo").find(".age").attr("src");
-
+        
         // .ticketInfo 업데이트
         $(".ticketInfo .ticketImg").attr("src", selectedImgSrc);
         $(".ticketInfo .ageRatingImg").attr("src", ageRatingSrc);
         $(".ticketInfo .ticketInfoText p:nth-child(1)").text(movieName);
         $(".ticketInfo .ticketInfoText p:nth-child(2)").text(showTime);
         
+        showSeatsForMovie();
     });
 
     // Home Button
@@ -71,7 +87,12 @@ $(document).ready(function () {
     //Next Button
     $(".Ticket .nextbtn").click(function () {
         $(".Ticket").hide();
+        //--------------------------------------------
+        // 모든 시트를 초기화 하고
+        // 로컬스토리지에서 영화 키로 판매좌석 목록을 가져와서
+        // 필요한 처리를 한다.
         $(".Seat").show();
+        showSeatsForMovie();
     });
 
     $(".Seat .nextbtn2").click(function () {
@@ -148,17 +169,11 @@ $(document).ready(function () {
 
         if (totalPeople > 0) {
             if ($(this).hasClass("selected")) {
-                $(this).removeClass("selected").css({
-                    "background-color": "white",
-                    "color": "black"
-                });
+                $(this).removeClass("selected");
                 --selectedSeatsCounter;
                 console.log(`현재 ${selectedSeatsCounter}명 선택`);
             } else {
-                $(this).addClass("selected").css({
-                    "background-color": "rgb(250, 130, 115)",
-                    "color": "white"
-                });
+                $(this).addClass("selected");
                 ++selectedSeatsCounter;
                 console.log(`현재 ${selectedSeatsCounter}명 선택`);
             }
@@ -187,10 +202,7 @@ $(document).ready(function () {
     $(".seat").click(updateSeatSelection);
 
     $(".backicon, .homeicon").click(function () {
-        $(".seat:not(.Sold)").removeClass("selected").css({
-            "background-color": "white",
-            "color": "black"
-        });
+        $(".seat:not(.Sold)").removeClass("selected");
         selectedSeatsCounter = 0;
         $(".seat").click(updateSeatSelection);
         console.log(`${selectedSeatsCounter} 좌석 초기화`);
@@ -235,7 +247,7 @@ $(document).ready(function () {
     });  
     $(".card-reader").droppable({ 
         drop: function () {
-            alert("결제완료"); 
+            alert("결제 완료"); 
             $(".credit-card").hide();
             $(".card-reader").hide();
             $(".Receipt").show();
@@ -254,13 +266,12 @@ $(document).ready(function () {
             $(".details p:nth-child(4)").text(`총인원 ${totalPeopleInfo}명 (일반 ${adult}명) (청소년 ${teenager}명)`);
             
             resetNumberButtons();
-            setTimeout(timeOut, 20000);
             
             // 좌석 정보에서 "좌석"과 "|"를 제거하고 저장
             let selectedSeats = selectedSeatsText.replace('좌석 │ ', '').split(', ');
 
             // 해당 영화의 키를 생성 (영화 제목을 소문자로 변환하여 사용)
-            let movieKey = selectedMovieTitle.toLowerCase();
+            movieKey = selectedMovieTitle.toLowerCase();
 
             // 기존에 저장된 해당 영화의 좌석 정보를 불러오기
             let existingSeats = localStorage.getItem(movieKey);
@@ -270,15 +281,11 @@ $(document).ready(function () {
             selectedSeats.forEach(seat => existingSeats.add(seat));
 
             // 로컬스토리지에 업데이트된 좌석 정보 저장
-            localStorage.setItem(movieKey, [...existingSeats].join(', '));
-
+            //localStorage.setItem(movieKey, [...existingSeats].join(', '));
+            
             selectedSeatsCounter = 0;
             $(".seat").click(updateSeatSelection);
             $(".selected").addClass("Sold");
-            $(".selected").css({
-                "background-color": "#aaaaaa",
-                "color": "white"
-            });
             $(".selected").removeClass("selected");
             $(".Sold").off("click");
             $(".nextbtn2").css("visibility", "hidden");
@@ -286,6 +293,8 @@ $(document).ready(function () {
                 top: '50px',
                 left: '50px'
             });
+            // added by prof.
+            localStorage.setItem(movieKey, getSoldSeats());
         }
     });
 
@@ -343,18 +352,30 @@ function resetNumberButtons() {
 }
 
 function resetSeatSelection() {
-    $(".seat:not(.Sold)").css({
-        "background-color": "white",
-        "color": "black"
-    });
-
     $(".nextbtn2").css("visibility", "hidden");
 }
+function showSeatsForMovie() {
+    // 전체좌석 초기화
+    // $(".seat").css({
+    //     "background-color": "white",
+    //     "color": "black"
+    // });
+    $(".seat").removeClass("Sold");
+    $(".seat").removeClass("selected");
+    //-----------------------
+    //선택한 영화의 좌석 목록 표시하기
+    let soldSeats = localStorage.getItem(movieKey).split(",");
+    for(let seat of soldSeats) {
+        //$(gid(seat)).addClass("Sold", "selected");
+        $(`#${seat}`).addClass("Sold");
+        $(`#${seat}`).addClass("selected");
+        //gid(seat).classList.addClass("Sold");
+        //gid(seat).classList.addClass("selected");
+    }
 
-function timeOut() {
-    $(".selectMenu").hide();
-    $(".Receipt").hide();
-    $("header").show();
-    $(".headerVideo").get(0).play();
-    $(".movieList").show();
+
+
+
+    //----------------------------------
+    $(".nextbtn2").css("visibility", "hidden");
 }
