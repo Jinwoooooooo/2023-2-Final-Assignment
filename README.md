@@ -29,3 +29,6 @@
 만약 이전 사용자가 아이언맨 3의 좌석 A1, A2를 예매했다면 그 다음 사용자는
 당연히 아이언맨 3의 좌석 A1, A2를 예매할 수 없다.
 예매할 수 없다는 것을 알 수 있게 예매된 좌석은 배경색을 회색으로 변경했다.
+<div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=Jinwoooooooo&show_icons=true&theme=radical" alt="GitHub Stats">
+</div>
