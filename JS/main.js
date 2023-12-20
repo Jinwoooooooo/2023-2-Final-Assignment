@@ -355,25 +355,14 @@ function resetSeatSelection() {
     $(".nextbtn2").css("visibility", "hidden");
 }
 function showSeatsForMovie() {
-    // 전체좌석 초기화
-    // $(".seat").css({
-    //     "background-color": "white",
-    //     "color": "black"
-    // });
     $(".seat").removeClass("Sold");
     $(".seat").removeClass("selected");
     //-----------------------
     //선택한 영화의 좌석 목록 표시하기
     let soldSeats = localStorage.getItem(movieKey).split(",");
     for(let seat of soldSeats) {
-        //$(gid(seat)).addClass("Sold", "selected");
         $(`#${seat}`).addClass("Sold");
-        //gid(seat).classList.addClass("Sold");
-        //gid(seat).classList.addClass("selected");
     }
-
-
-
 
     //----------------------------------
     $(".nextbtn2").css("visibility", "hidden");
