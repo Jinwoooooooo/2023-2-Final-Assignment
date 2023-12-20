@@ -1,6 +1,5 @@
-# 2023-2-Finale<br>
-1학년 2학기 프론트엔드 기말과제<br>
-<p style="text-align: center;">https://jinwoooooooo.github.io/2023-2-Final-Assignment/</p>
+# 1학년 2학기 프론트엔드 기말과제
+https://jinwoooooooo.github.io/2023-2-Final-Assignment/
 
 ## 과제 소개
 
