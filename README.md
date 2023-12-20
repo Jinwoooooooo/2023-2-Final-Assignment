@@ -1,7 +1,8 @@
-### 1학년 2학기 프론트엔드 기말과제
-https://jinwoooooooo.github.io/2023-2-Final-Assignment/
+## 1학년 2학기 프론트엔드 기말과제
+###### https://jinwoooooooo.github.io/2023-2-Final-Assignment/
 
-## 과제 소개
+<hr>
+### 과제 소개
 
 첫 화면은 상영 중인 영화 목록을 보여준다. 각 영화에는 영화 포스터, 영화 제목, 상영 시간, 
 연령 등급이 있고 상단에는 상영 중인 영화의 예고편과 광고를 넣고 반복 재생을 한다.
