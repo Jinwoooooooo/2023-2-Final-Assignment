@@ -1,8 +1,9 @@
 # 2023-2-Finale<br>
 1학년 2학기 프론트엔드 기말과제<br>
-https://jinwoooooooo.github.io/2023-2-Final-Assignment/
+<p style="text-align: center;">https://jinwoooooooo.github.io/2023-2-Final-Assignment/</p>
 
-<pre>
+## 과제 소개
+
 첫 화면은 상영 중인 영화 목록을 보여준다. 각 영화에는 영화 포스터, 영화 제목, 상영 시간, 
 연령 등급이 있고 상단에는 상영 중인 영화의 예고편과 광고를 넣고 반복 재생을 한다.
 영화 포스터를 클릭하면 일반, 청소년 인원 선택 창이 뜬다. 
@@ -28,4 +29,3 @@ https://jinwoooooooo.github.io/2023-2-Final-Assignment/
 만약 이전 사용자가 아이언맨 3의 좌석 A1, A2를 예매했다면 그 다음 사용자는
 당연히 아이언맨 3의 좌석 A1, A2를 예매할 수 없다.
 예매할 수 없다는 것을 알 수 있게 예매된 좌석은 배경색을 회색으로 변경했다.
-</pre>
