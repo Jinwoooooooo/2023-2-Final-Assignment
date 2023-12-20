@@ -368,7 +368,6 @@ function showSeatsForMovie() {
     for(let seat of soldSeats) {
         //$(gid(seat)).addClass("Sold", "selected");
         $(`#${seat}`).addClass("Sold");
-        $(`#${seat}`).addClass("selected");
         //gid(seat).classList.addClass("Sold");
         //gid(seat).classList.addClass("selected");
     }
