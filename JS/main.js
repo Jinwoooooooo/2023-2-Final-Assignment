@@ -306,7 +306,7 @@ function getSoldSeats() {
         $(".movieList").show();
     })
     $(".print").click(function() {
-        
+        window.print();
     });
 });
 
